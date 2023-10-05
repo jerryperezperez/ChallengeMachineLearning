@@ -1,4 +1,3 @@
-from collections import OrderedDict
 
 from flask import Flask, request, jsonify
 
@@ -30,10 +29,12 @@ def reconocer_entidades():
             # Se almacenan las entidades nombradas empleando comprehensive dict
             entidades = {ent.text: ent.label_ for ent in doc.ents}
             # Se agrega la oracion y sus respectivas entidades empleando un diccionario
-            resultados.append(OrderedDict([
-                ("oracion", oracion),
-                ("entidades", entidades)
-            ]))
+            resultados.append(
+                {
+                "oracion": oracion,
+                "entidades": entidades
+                }
+            )
 
         # Se devuelven los resultados almacenados en la lista de resultados en formato JSON
         return jsonify({'resultado': resultados})
